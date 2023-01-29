@@ -1,6 +1,6 @@
 # Programmering2
 
-**TODO: Add description**
+All the program file are in the lib folder. Each folder inside lib corresponds to a lab in the course.
 
 ## Installation
 
