@@ -4,7 +4,7 @@ defmodule EnvList do
   def test do
     l = [{:a, 1}]
 
-    remove(l, :a)
+    add(l, :b, 2)
   end
 
   def add([], key, value) do [{key, value}] end
