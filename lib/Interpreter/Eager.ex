@@ -40,22 +40,27 @@ defmodule Eager do
         case eval_args(args, env) do
           :error -> :error
           {:ok, strs} ->
+            IO.inspect(strs, label: "strs")
             env = Env.args(par, strs, closure)
+            IO.inspect(env, label: "env")
+            IO.inspect(seq, label: "seq")
             eval_seq(seq, env)
-          end
         end
+      end
+  end
+  def eval_expr({:fun, id}, _) do
+    {par, seq} = apply(Prgm, id, [])
+    {:ok, {:closure, par, [], seq}}
   end
 
-  def eval_args(args, env) do
-    eval_args(args, env, [])
-  end
-
+  def eval_args(args, env) do eval_args(args, env, []) end
   def eval_args([], _, strs) do {:ok, Enum.reverse(strs)}  end
   def eval_args([expr | exprs], env, strs) do
     case eval_expr(expr, env) do
       :error ->
         :error
       {:ok, str} ->
+        IO.inspect(str, label: "str")
         eval_args(exprs, env, [str|strs])
     end
   end
@@ -90,7 +95,6 @@ defmodule Eager do
   end
 
   def eval_seq([exp], env) do
-    IO.inspect(exp)
     eval_expr(exp, env)
   end
   def eval_seq([{:match, ptr, exp} | seq], env) do
@@ -98,10 +102,11 @@ defmodule Eager do
       :error -> :error
       {:ok, str} ->
         env = eval_scope(ptr, env)
-        IO.inspect(env)
         case eval_match(ptr, str, env) do
           :fail -> :error
-          {:ok, env} -> eval_seq(seq, env)
+          {:ok, env} ->
+            IO.inspect(env, label: "env")
+            eval_seq(seq, env)
         end
     end
   end

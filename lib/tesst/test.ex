@@ -1,32 +1,25 @@
 defmodule Test do
   def test do
-    # seq = [{:match, {:var, :x}, {:atm,:a}},
-    #       {:match, {:var, :y}, {:cons, {:var, :x}, {:atm, :b}}},
-    #       {:match, {:cons, :ignore, {:var, :z}}, {:var, :y}},
-    #       {:var, :z}]
-    # seq = [{:match, {:var, :x}, {:atm,:a}},
-    #       {:var, :x}]
+    # f = fn(x) -> x * 2 end
+    # g = fn(x) -> x + 5 end
+    # h = fn(x) -> if x == :dog do :fido; else x end end
+    # t = fn(x) -> 2*x + 5 end
+    # p = fn(x, y) -> x * y end
+    # s = fn(x, y) -> x + y end
+    #k = fn(x) -> rem(x,2) == 1 end
+    k = fn(x) -> x>5 end
 
-    seq = [{:match, {:var, :x}, {:atm, :a}},
-            {:match, {:var, :z}, {:atm, :b}},
-            {:case, {:var, :x},
-              [{:clause, {:atm, :b}, [{:atm, :ops}]},
-              {:clause, {:var, :z}, [{:atm, :yes}]}
-            ]}
-          ]
+    l = [1,2,3,4,5,6,7,8,9]
+    #l2 = [:cat, :mouse, :dog, :horse]
 
-    # seq = [ {:match, {:var, :x}, {:atm, :a}},
-    #         {:match, {:var, :y}, {:atm, :b}},
-    #         {:match, {:var, :x}, {:atm, :c}},
-    #         {:cons, {:var, :x}, {:var, :y}} ]
+    # Hof.apply_to_all([1,2,3,4], f)
+    # Hof.apply_to_all([1,2,3,4], g)
+    # Hof.apply_to_all([:dog, :cat, :cow, :horse], h)
+    # Hof.apply_to_all([1,2,3,4], t)
+    # Hof.prod(l)
+    #Hof.odd(l)
+    Higher.filter(l, k)
+    #Hof.fold_right(l, 0, p)
 
-    # seq = [{:match, {:var, :x}, {:atm, :a}},
-    #         {:match, {:var, :f},
-    #         {:lambda, [:y], [:x], [{:cons, {:var, :x}, {:var, :y}}]}},
-    #         {:apply, {:var, :f}, [{:atm, :b}]} ]
-
-    #Eager.eval_seq(seq, Env.new())
-    Eager.eval(seq)
-    #Eager.eval_match({:var, :x}, :a, [{:x, :b}])
   end
 end
