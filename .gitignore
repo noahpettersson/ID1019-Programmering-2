@@ -26,3 +26,5 @@ programmering2-*.tar
 /tmp/
 
 .DS_Store
+
+test/
